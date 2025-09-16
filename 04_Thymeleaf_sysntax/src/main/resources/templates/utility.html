@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <!--/* String Utility : #strings */-->
+
+  <div th:text="${#strings.length(title)}"></div>
+  <div th:text="${#strings.abbreviate(title, 10)}"></div>
+  
+  <div th:text="${#strings.isEmpty(content)}"></div>
+  <div th:text="${not #strings.isEmpty(content)}"></div>
+  <div th:text="${#strings.defaultString(content, 'Base Content')}"></div>
+  
+  <!--/* Number Utility : #numbers */-->
+  <div th:text="${#numbers.formatInteger(hit, 5, 'COMMA')}"></div>
+  <div th:text="${#numbers.formatInteger(hit, 4, 'COMMA')}"></div>
+  <div th:text="${#numbers.formatDecimal(hit, 4, 2)}"></div>
+  <div th:text="${#numbers.formatDecimal(hit, 4, 'COMMA', 2, 'POINT')}"></div>
+  <div th:text="${#numbers.sequence(1230, hit)}"></div>
+  <div th:text="${#arrays.length(#numbers.sequence(1230, hit))}"></div>
+  
+  <!--/* List Utility : #lists*/-->
+  <div th:text="${#lists.size(authors)}"></div>
+  <div th:text="${#lists.isEmpty(authors)}"></div>
+  
+  <!--/* Temporal Utility : #temporals */-->
+  <div th:text="${#temporals.format(pubdate, 'yyyy-MM-dd EEEE')}"></div>
+  <div th:text="${#temporals.format(pubdate, 'a hh:mm:ss.SSS')}"></div>
+  <div th:text="${#temporals.format(pubdate, 'HH:mm:ss.SSS')}"></div>
+  <div th:text="${#temporals.year(pubdate)}"></div>
+  
+</body>
+</html>
