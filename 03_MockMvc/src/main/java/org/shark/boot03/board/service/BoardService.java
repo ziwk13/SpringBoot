@@ -1,4 +1,4 @@
-package org.shark.boot03.service;
+package org.shark.boot03.board.service;
 
 import java.util.List;
 

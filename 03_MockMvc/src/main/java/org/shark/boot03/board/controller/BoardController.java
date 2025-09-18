@@ -1,7 +1,7 @@
 package org.shark.boot03.board.controller;
 
 import org.shark.boot03.board.dto.BoardDTO;
-import org.shark.boot03.service.BoardService;
+import org.shark.boot03.board.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
