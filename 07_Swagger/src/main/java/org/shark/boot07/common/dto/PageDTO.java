@@ -1,4 +1,4 @@
-package org.shark.boot06.common.dto;
+package org.shark.boot07.common.dto;
 
 import lombok.Getter;
 import lombok.Setter;

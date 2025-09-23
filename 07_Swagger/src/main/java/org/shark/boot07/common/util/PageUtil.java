@@ -1,6 +1,6 @@
-package org.shark.boot06.common.util;
+package org.shark.boot07.common.util;
 
-import org.shark.boot06.common.dto.PageDTO;
+import org.shark.boot07.common.dto.PageDTO;
 import org.springframework.stereotype.Component;
 
 /**
