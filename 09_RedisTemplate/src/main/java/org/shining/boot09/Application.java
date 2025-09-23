@@ -1,4 +1,5 @@
-package org.shining._8;
+package org.shining.boot09;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
