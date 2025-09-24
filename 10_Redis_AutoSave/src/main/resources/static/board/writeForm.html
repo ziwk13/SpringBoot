@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board write Form</title>
+</head>
+<body>
+
+  <h1>Board Write Form (30초마다 임시저장)</h1>
+  <form>
+    <label for="title">제목</label>
+    <input type="text" id="title"><br>
+    <label for="content">내용</label>
+    <textarea rows= "5" cols = "30" id = "content"></textarea><br><br>
+    <button type="button" onclick="saveBoard()">작성완료</button>
+  </form>
+  
+  <div id="count"></div>
+  
+  <script>
+    const baseUrl = "/api/boards";
+    const title = document.getElementById("title");
+    const content = document.getElementById("content");
+    
+    // 자동 저장 
+    function autosave() {
+    	const board = JSON.stringify({
+    		title: title.value,
+    		content: content.value
+    	})
+    	fetch(baseUrl + "/autosave", {
+    		method: "POST",
+    		headers: {
+    			"Content-Type": "application/json", 
+    			"Accept" : "text/plain"
+    		},
+    		body: board
+    	})
+    	.then(response => response.text())
+    	.then(data => {
+    		document.getElementById("count").textContent = data;
+    	})
+    }
+    
+    // 현재 페이지 로드 시 자동 저장된 정보 불러오기
+    function loadDraft() {
+    	fetch(baseUrl + "/autosave", {
+    		method: "GET"
+    	})
+    	.then(response => response.json())
+    	.then(json => {
+    		title.value = json.title;
+    		content.value = json.content;
+    	})
+    }
+    
+    // 자동 저장은 30초마다 호출
+    setInterval(autosave, 10 * 1000);
+    
+    // 게시글 저장 하기
+    function saveBoard() {
+    	fetch(baseUrl, {
+    		method: "POST"
+    	})
+    	.then(response => response.text())
+    	.then(data => {
+    		alert(data);
+    		title.value = "";
+    		content.value = "";
+    	})
+    }
+    
+    // 페이지 로드 시 정보 불러오기
+    loadDraft();
+  </script>
+</body>
+</html>

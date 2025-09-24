@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: 10_Redis_AutoSave
+  data:
+    redis:
+      host: localhost
+      port: 6379
