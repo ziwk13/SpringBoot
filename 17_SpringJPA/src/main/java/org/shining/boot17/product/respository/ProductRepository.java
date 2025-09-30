@@ -1,11 +1,9 @@
 package org.shining.boot17.product.respository;
 
-import java.util.List;
-
 import org.shining.boot17.product.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 /*
  * Spring Data JPA - Repository 인터페이스 상속 구조
@@ -61,7 +59,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>{
   
-  @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId")
-  List<Product> findByCategoryId(@Param("categoryId") Integer categoryId);
+  Page<Product> findByCategoryCategoryId(Integer categoryId, Pageable pageable);
 
 }

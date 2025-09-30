@@ -3,8 +3,10 @@ package org.shining.boot17.product.controller;
 import java.util.Map;
 
 import org.shining.boot17.product.dto.ProductDTO;
+import org.shining.boot17.product.dto.response.ApiPageResponse;
 import org.shining.boot17.product.dto.response.ApiResponseDTO;
 import org.shining.boot17.product.service.ProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -84,12 +86,12 @@ public class ProductApiController {
     return ResponseEntity.ok(apiResponseDTO);
   }
   @GetMapping("/category/{id}")
-  public ResponseEntity<ApiResponseDTO> findByCategoryId(@PathVariable(value = "id") Integer categoryId) {
-    ApiResponseDTO apiResponseDTO = ApiResponseDTO.builder()
-                                                  .code("200")
-                                                  .message("카테고리별 제품 조회 성공")
-                                                  .results(Map.of("category", productService.findProductsByCategoryId(categoryId)))
-                                                  .build();
-    return ResponseEntity.ok(apiResponseDTO);
+  public ResponseEntity<ApiPageResponse<ProductDTO>> findByCategoryId(@PathVariable(value = "id") Integer categoryId
+                                                       , @PageableDefault(page = 1, size = 5, sort = "productId", direction = Direction.DESC)
+                                                          Pageable pageable) {
+    pageable = pageable.withPage(pageable.getPageNumber() - 1);
+    Page<ProductDTO> productPage = productService.findProductListByCategory(categoryId, pageable);
+    ApiPageResponse<ProductDTO> apiPageResponse = new ApiPageResponse<>(productPage);
+    return ResponseEntity.ok(apiPageResponse);
   }
 }

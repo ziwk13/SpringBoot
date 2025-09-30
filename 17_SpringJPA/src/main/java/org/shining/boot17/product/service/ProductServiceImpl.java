@@ -1,6 +1,5 @@
 package org.shining.boot17.product.service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.shining.boot17.product.dto.ProductDTO;
@@ -68,9 +67,11 @@ public class ProductServiceImpl implements ProductService {
     Page<Product> productPage = productRepository.findAll(pageable);
     return productPage.map(p -> ProductDTO.toDTO(p));
   }
+  
   @Transactional(readOnly = true)
   @Override
-  public List<Product> findProductsByCategoryId(Integer categoryId) {
-    return productRepository.findByCategoryId(categoryId);
+  public Page<ProductDTO> findProductListByCategory(Integer categoryId, Pageable pageable) {
+    Page<Product> productPage = productRepository.findByCategoryCategoryId(categoryId, pageable);
+    return productPage.map(p -> ProductDTO.toDTO(p));
   }
 }
