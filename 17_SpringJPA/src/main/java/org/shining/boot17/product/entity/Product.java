@@ -1,9 +1,10 @@
-package org.shark.boot16.product.entity;
+package org.shining.boot17.product.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import org.shining.boot17.product.dto.ProductDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,12 +25,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicUpdate
 public class Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "product_id")
-  private Long productId;
+  private Integer productId;
   
   @Column(name = "product_name", length = 100, nullable = false)
   private String productName;
@@ -55,9 +56,23 @@ public class Product {
   @JoinColumn(name = "category_id", nullable = false)
   private Category category;
   
-  @OneToMany(mappedBy = "product")
-  private List<OrderProduct> orderProduct;
+  public static Product createProduct() {
+    return new Product();
+  }
   
+  public void update(ProductDTO productDTO){
+      this.setProductName(productDTO.getProductName());
+      this.setProductPrice(productDTO.getProductPrice());
+      this.setStockQuantity(productDTO.getStockQuantity());
+      this.setSaleStatusYn(productDTO.getSaleStatusYn());
+      this.setProductDescription(productDTO.getProductDescription());
+     if(productDTO.getCategoryName() != null){
+         Category category = new Category();
+         category.setCategoryName(productDTO.getCategoryName());
+         this.setCategory(category);
+     }
+  }
+
   public static Product createProduct(String productName, Integer productPrice, Integer stockQuantity, Boolean saleStatusYn, String productDescription, LocalDateTime registerDate, Category category) {
     Product product = new Product();
     product.setProductName(productName);
