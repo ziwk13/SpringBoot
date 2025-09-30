@@ -13,5 +13,5 @@ public interface ProductService {
   void deleteProduct(Integer productId);
   ProductDTO findProductById(Integer productId);
   Page<ProductDTO> findProductList(Pageable pageable);
-  List<Product> findProductsByCategory(Integer categoryId);
+  List<Product> findProductsByCategoryId(Integer categoryId);
 }

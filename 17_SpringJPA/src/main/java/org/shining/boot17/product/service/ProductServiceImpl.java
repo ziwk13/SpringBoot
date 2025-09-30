@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
   }
   @Transactional(readOnly = true)
   @Override
-  public List<Product> findProductsByCategory(Integer categoryId) {
+  public List<Product> findProductsByCategoryId(Integer categoryId) {
     return productRepository.findByCategoryId(categoryId);
   }
 }

@@ -49,8 +49,7 @@ public class ProductApiController {
   }
   // 삭제 요청
   @DeleteMapping("/{id}")
-  public ResponseEntity<ApiResponseDTO> delete(ProductDTO dto, @PathVariable(value = "id") Integer productId) {
-    productService.deleteProduct(productId);
+  public ResponseEntity<ApiResponseDTO> delete(@PathVariable(value = "id") Integer productId) {
     ApiResponseDTO apiResponseDTO = ApiResponseDTO.builder()
                                                   .code("200")
                                                   .message("제수성")
@@ -59,8 +58,7 @@ public class ProductApiController {
   }
   // 조회 요청
   @GetMapping("/{id}")
-  public ResponseEntity<ApiResponseDTO> find(ProductDTO dto, @PathVariable(value = "id") Integer productId) {
-    productService.findProductById(productId);
+  public ResponseEntity<ApiResponseDTO> find(@PathVariable(value = "id") Integer productId) {
     ApiResponseDTO apiResponseDTO = ApiResponseDTO.builder()
                                                   .code("200")
                                                   .message("제품 조회 성공")
@@ -89,8 +87,8 @@ public class ProductApiController {
   public ResponseEntity<ApiResponseDTO> findByCategoryId(@PathVariable(value = "id") Integer categoryId) {
     ApiResponseDTO apiResponseDTO = ApiResponseDTO.builder()
                                                   .code("200")
-                                                  .message("제품 조회 성공")
-                                                  .results(Map.of("category", productService.findProductsByCategory(categoryId)))
+                                                  .message("카테고리별 제품 조회 성공")
+                                                  .results(Map.of("category", productService.findProductsByCategoryId(categoryId)))
                                                   .build();
     return ResponseEntity.ok(apiResponseDTO);
   }
